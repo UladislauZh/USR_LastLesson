@@ -1,24 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import { Button } from "./Button/Button";
+import { Title } from "./Title/Title";
+
+export const numbers = [0, 1, 2, 3, 4, 5];
 
 function App() {
+  //max min value
+  const [inc, setInc] = useState(0);
+
+  function onClickHandler() {
+    if (inc < 5) {
+      setInc(inc + 1);
+    }
+  }
+  function onReset() {
+    setInc(0);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <Title inc={inc} />
+      <div className='buttons'>
+        <Button
+          name='inc'
+          onClick={onClickHandler}
+          disabled={inc >= numbers.length - 1}
+        />
+        <Button name='reset' onClick={onReset} disabled={inc === numbers[0]} />
+      </div>
     </div>
   );
 }
